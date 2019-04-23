@@ -4,6 +4,7 @@ const db = require("./db.js");
 
 const router = express.Router();
 
+//Get all Post
 router.get("/", (req, res) => {
   db.find()
     .then(post => {
@@ -13,6 +14,26 @@ router.get("/", (req, res) => {
       res.status(500).json({
         error: "There was an error while saving the post to the database"
       });
+    });
+});
+
+//Get Post by Id
+router.get("/:id", (req, res) => {
+  const PostId = req.params.id;
+  db.findById(PostId)
+    .then(post => {
+      if (!post) {
+        res.status(404).json({
+          message: "The post with the specified ID does not exist."
+        });
+      } else {
+        res.json(post);
+      }
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: "The post information could not be retrieved." });
     });
 });
 
