@@ -6,10 +6,10 @@ const server = express();
 
 server.use(express.json());
 
-server.get('/', (red, res) => {
-    res.send('Server Is Running...')
-})
+server.get('/', (req, res) => {
+    res.send(`Server Is Running...`);
+  });
 
-server.use('/api/post', dataRouter);
+server.use('/api/posts', dataRouter);
 
 module.exports = server;
